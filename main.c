@@ -4,12 +4,12 @@
 #include "sorted-list.h"
 
 int compareInt(void* obj1, void* obj2){
-  int *first = (int*)obj1;
-  int *second = (int*)obj2;
-  
-  if(*first > *second)
+  int first = *((int*)obj1);
+  int second = *((int*)obj2);
+  printf("first: %d , second: %d\n",first,second);
+  if(first > second)
     return 1;
-  else if(*second > *first)
+  else if(second > first)
     return -1;
   else 
     return 0;
@@ -63,7 +63,7 @@ int main(int argc, char** argv){
   char yc;
   char *xs[30];
   char *ys[30];
-  void *ptr3 = &xi;
+  void *ptr3 = NULL;
   void *ptr4 = &yi;
   char string[10] = "";
   SortedListPtr SLint = NULL;
@@ -83,12 +83,14 @@ int main(int argc, char** argv){
 	  printf("enter an int to insert\n");
 	  scanf("%d", &xi);
 	  scanf("%c", &trash);
-	  ptr3 = &xi;
+	  void *ptrtest=(void*)(malloc(sizeof(int)));
+	  //ptr3 = &xi;
+	  memcpy(ptrtest,&xi,1);
 	  if(SLint == NULL){
 	    SLint = SLCreate(&compareInt, &df);
 	    printf("created list, SLint\n");
 	  }
-	  printf("output is: %d\n", SLInsert(SLint, ptr3));
+	  printf("output is: %d\n", SLInsert(SLint, ptrtest));
 	}
 	else if(in == '1'){ //char
 	  scanf("%c", &trash);

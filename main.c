@@ -39,29 +39,13 @@ int compareFloat(void* obj1, void* obj2){
 }
 
 int compareString(void* obj1, void* obj2){
-  char *first = (char*)obj1;
-  char *second = (char*)obj2;
-  
-  int pos = 0;
-  char v1;
-  char v2; 
-
-  while(pos > -1){
-    v1 = first[pos];
-    v2 = second[pos];
-    if(v1 > 96)
-      v1 = v1 - 32;
-    if(v2 > 96)
-      v2 = v2 - 32;
-    if(v1 == '\0' && v2 == '\0')
-      return 0;    
-    else if(v1 > v2 || v1 == '\0')
-      return 1;
-    else if(v2 > v1 || v2 == '\0')
-      return -1;
-    pos++;
+  if(strcmp(obj1,obj2)<0){
+    return -1;
+  }else if(strcmp(obj1,obj2)>0){
+    return 1;
+  }else{
+    return 0; 
   }
-  return 0;
 }
 
 void df(void *obj){
@@ -123,7 +107,7 @@ int main(int argc, char** argv){
           scanf("%s",(char*) xs);
           scanf("%c", &trash);
           void *ptr = (void*)(malloc(sizeof(char[30])));
-          memcpy(ptr, &xs, 1);
+          memcpy(ptr, &xs, 30);
           if(SLstring == NULL){
             SLstring = SLCreate(&compareString, &df);
             printf("created list, SLstring\n");
@@ -178,7 +162,8 @@ int main(int argc, char** argv){
       }
       else if(in == '2'){ //destroy
 	printf("0 for int, 1 for char, 2 for string, 3 for float\n");
-	scanf("%c\n", &in);
+	scanf("%c", &in);
+	scanf("%c",&trash);
 	if(in == '0'){ //int
 	  SLDestroy(SLint);
 	  printf("destroyed int list\n");

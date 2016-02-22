@@ -55,12 +55,13 @@ int compareString(void* obj1, void* obj2){
       v2 = v2 - 32;
     if(v1 == '\0' && v2 == '\0')
       return 0;    
-    if(v1 > v2 || v1 == '\0')
+    else if(v1 > v2 || v1 == '\0')
       return 1;
     else if(v2 > v1 || v2 == '\0')
       return -1;
     pos++;
   }
+  return 0;
 }
 
 void df(void *obj){
@@ -73,7 +74,6 @@ int main(int argc, char** argv){
   float xf;
   char *xs[30];
   void *ptr3 = NULL;
-  char string[10] = "";
   SortedListPtr SLint = NULL;
   SortedListPtr SLchar = NULL;
   SortedListPtr SLstring = NULL;
@@ -120,7 +120,7 @@ int main(int argc, char** argv){
 	}
 	else if(in == '2'){ //string
           printf("enter a string to insert\n");
-          scanf("%s", &xs);
+          scanf("%s",(char*) xs);
           scanf("%c", &trash);
           void *ptr = (void*)(malloc(sizeof(char[30])));
           memcpy(ptr, &xs, 1);
@@ -132,7 +132,7 @@ int main(int argc, char** argv){
         }
 	else if(in == '3'){ //float
 	  printf("enter a char to insert\n");
-          scanf("%.9f", &xf);
+          scanf("%f", &xf);
           scanf("%c", &trash);
           void *ptr = (void*)(malloc(sizeof(float)));
           memcpy(ptr, &xf, 1);
@@ -163,14 +163,14 @@ int main(int argc, char** argv){
         }
 	if(in == '2'){ //string
           printf("enter a string to remove\n");
-          scanf("%s", &xs);
+          scanf("%s", (char*)xs);
           scanf("%c", &trash);
           ptr3 = &xs;
           printf("output is: %d\n", SLRemove(SLstring, ptr3));
         }
 	if(in == '3'){ //float
           printf("enter a float to remove\n");
-          scanf("%.9f", &xf);
+          scanf("%f", &xf);
           scanf("%c", &trash);
           ptr3 = &xf;
           printf("output is: %d\n", SLRemove(SLfloat, ptr3));
@@ -249,7 +249,7 @@ int main(int argc, char** argv){
           if(ptr == NULL)
             printf("NULL\n");
           else
-            printf("item: %s\n", *((char*)(ptr)));
+            printf("item: %s\n", (char*)(ptr));
         }
 	if(in == '3'){ //float
           void *ptr = (void*)(malloc(sizeof(float)));
@@ -286,7 +286,7 @@ int main(int argc, char** argv){
           if(ptr == NULL)
             printf("NULL\n");
           else
-            printf("item: %s\n", *((char*)(ptr)));
+            printf("item: %s\n", (char*)(ptr));
         }
 	if(in == '3'){ //float
           void *ptr = (void*)(malloc(sizeof(float)));

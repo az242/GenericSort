@@ -1,16 +1,13 @@
-all: sorted-list main libsl.a
+all: sorted-list.o main.o libsl.a create
 
-sorted-list: sorted-list.o
-	gcc -Wall -Werror -g sl -o sorted-list.o
+create:
+	gcc -0 sl sorted-list.c main.c
 
 sorted-list.o: sorted-list.c sorted-list.h
-	gcc -Wall -Werror -g -c sorted-list.c
-
-main: main.o
-	gcc -Wall -Werror -g main -o main.o
+	gcc -Wall -Werror -c sorted-list.c
 
 main.o: main.c
-	gcc -Wall -Werror -g -c main.c
+	gcc -Wall -Werror -c main.c
 
 libsla.a:
 	ar r libsl.a sorted-list.o main.o

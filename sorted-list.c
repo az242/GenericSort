@@ -58,7 +58,7 @@ int SLInsert(SortedListPtr list, void *newObj){
   else if(list->compare(newObj, list->data) == 0){ //if object already inserted
     return 0;
   }
-  else if(list->compare(newObj, list->data) == -1){ //if object is less than current object
+  else if(list->compare(newObj, list->data) == 1){ //if object is greater than current object
     if(list->prev == NULL){ //insert at beginning of list
       SortedListPtr temp = SLCreate(list->compare, list->destruct);
       temp->next = list;
@@ -66,8 +66,8 @@ int SLInsert(SortedListPtr list, void *newObj){
       temp->data = newObj;
       return 1;
     }
-    else if(list->compare(newObj, list->prev->data) == 1){ //insert before current object
-      SortedListPtr temp = SLCreate(list->compare, list->destruct);
+    else if(list->compare(newObj, list->prev->data) == -1){ //insert before current object
+      SortedListPtr temp = SLCreate(list->compare, list->destruct); 
       temp->next = list;
       temp->prev = list->prev;
       list->prev->next = temp;
@@ -78,7 +78,7 @@ int SLInsert(SortedListPtr list, void *newObj){
     else //continue looking backwards
       return(SLInsert(list->prev, newObj));
   }
-  else if(list->compare(newObj, list->data) == 1){ //if object is greater than current object
+  else if(list->compare(newObj, list->data) == -1){ //if object is less than current object
     if(list->next == NULL){ //insert at end of list
       SortedListPtr temp = SLCreate(list->compare, list->destruct);
       temp->prev = list;
@@ -86,7 +86,7 @@ int SLInsert(SortedListPtr list, void *newObj){
       temp->data = newObj;
       return 1;
     }
-    else if(list->compare(newObj, list->next->data) == -1){ //insert before next object
+    else if(list->compare(newObj, list->next->data) == 1){ //insert before next object
       SortedListPtr temp = SLCreate(list->compare, list->destruct);
       temp->prev = list;
       temp->next = list->next;

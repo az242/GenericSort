@@ -1,7 +1,7 @@
 all: sorted-list.o main.o libsl.a create
 
 create:
-	gcc -0 sl sorted-list.c main.c
+	gcc -o sl sorted-list.c main.c
 
 sorted-list.o: sorted-list.c sorted-list.h
 	gcc -Wall -Werror -c sorted-list.c

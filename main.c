@@ -6,6 +6,7 @@
 int compareInt(void* obj1, void* obj2){
   int first = *((int*)obj1);
   int second = *((int*)obj2);
+  //Store items in void pointers by casting to ints
   if(first > second)
     return 1;
   else if(second > first)
@@ -17,7 +18,7 @@ int compareInt(void* obj1, void* obj2){
 int compareChar(void* obj1, void* obj2){
   char first = *((char*)obj1);
   char second = *((char*)obj2);
-
+  //store items in void pointers by casting to char pointers
   if(first > second)
     return 1;
   else if(second > first)
@@ -29,7 +30,7 @@ int compareChar(void* obj1, void* obj2){
 int compareFloat(void* obj1, void* obj2){
   float first = *((float*)obj1);
   float second = *((float*)obj2);
-  
+  //store items in void pointer by casting to float pointers
   if(first < second)
     return -1;
   else if(first > second)
@@ -39,6 +40,7 @@ int compareFloat(void* obj1, void* obj2){
 }
 
 int compareString(void* obj1, void* obj2){
+  //we used a String.h library function to do our comparing for us
   if(strcmp(obj1,obj2)<0){
     return -1;
   }else if(strcmp(obj1,obj2)>0){
@@ -49,16 +51,24 @@ int compareString(void* obj1, void* obj2){
 }
 
 void df(void *obj){
+  //frees what ever is passed
   free(obj);
 }
 
 int main(int argc, char** argv){
+  //user options in interface
   char in, trash; 
+
+  //used for inserts
   int xi;
   char xc;
   float xf;
   char *xs[30];
+
+  //used for removes
   void *ptr3 = NULL;
+
+  //iterator stuff
   SortedListPtr SLint = NULL;
   SortedListPtr SLchar = NULL;
   SortedListPtr SLstring = NULL;
@@ -67,11 +77,11 @@ int main(int argc, char** argv){
   SortedListIteratorPtr Itchar = NULL;
   SortedListIteratorPtr Itstring = NULL;
   SortedListIteratorPtr Itfloat = NULL;
-  do{
+  do{//while statement for interface
     printf("0 for sorted-list options, 1 for iterator options, and q to quit\n");
     scanf("%c", &in);
     scanf("%c", &trash);
-    if(in == '0'){
+    if(in == '0'){//interface
       printf("0 to insert in list, 1 to remove from list, 2 to destroy list\n");
       scanf("%c", &in);
       scanf("%c", &trash);

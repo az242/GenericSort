@@ -15,6 +15,7 @@
  */
 
 SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
+  //init node with null values;
   SortedListPtr temp = NULL;
   temp = (struct SortedList *)malloc( 1 * sizeof(struct SortedList));
   temp->next = NULL;
@@ -29,6 +30,7 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
  * SLDestroy destroys a SortedList, freeing all dynamically-allocated memory.
  */
 void SLDestroy(SortedListPtr list){
+  //recursive method to free an entire Linked List
   if(list==NULL)
     return;
   if(list != NULL && list->next != NULL)
@@ -64,10 +66,11 @@ int SLInsert(SortedListPtr list, void *newObj){
     if(list->prev == NULL){ //insert at beginning of list
       SortedListPtr temp = SLCreate(list->compare, list->destruct);
       temp->prev = list;
-      if(list->next != NULL){
+      if(list->next != NULL){//add to right of Head
 	temp->next = list->next;
 	list->next->prev = temp;
       }
+      //swap values with head
       list->next=temp;
       temp->data = list->data;
       list->data = newObj;
@@ -126,13 +129,13 @@ int SLRemove(SortedListPtr list, void *newObj){
   else if(list->compare(newObj, list->data) == 0){ //if object already inserted
     if(list->prev == NULL){ //no object before
       //list->next->prev = NULL;
-      while(list->next != NULL){
+      while(list->next != NULL){//shift all data values 1 to left
 	list->data = list->next->data;
 	list = list->next;
       }
       if(list->prev!=NULL)
 	list->prev->next = NULL;
-      list->destruct(list);
+      list->destruct(list);//destroy last node.
       return 1;
     }
     else if(list->next == NULL){
@@ -168,6 +171,7 @@ int SLRemove(SortedListPtr list, void *newObj){
  */
 
 SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
+  //init Iterator
   SortedListIteratorPtr temp = NULL;
   temp = (struct SortedListIterator *)malloc( 1 * sizeof(struct SortedListIterator));
   temp->Itptr = list;
@@ -183,6 +187,7 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
  */
 
 void SLDestroyIterator(SortedListIteratorPtr iter){
+  //frees what ever is passed to it
   free(iter);
 }
 
@@ -204,6 +209,7 @@ void SLDestroyIterator(SortedListIteratorPtr iter){
 void * SLNextItem(SortedListIteratorPtr iter){
   if(iter == NULL || iter->Itptr == NULL || iter->Itptr->next == NULL)
     return NULL;
+  //iterates iterator
   iter->Itptr = iter->Itptr->next;
   return iter->Itptr->data;
 }

@@ -49,6 +49,7 @@ int compareString(void* obj1, void* obj2){
 }
 
 void df(void *obj){
+  free(obj);
 }
 
 int main(int argc, char** argv){
@@ -115,7 +116,7 @@ int main(int argc, char** argv){
           printf("output is: %d\n", SLInsert(SLstring, ptr));
         }
 	else if(in == '3'){ //float
-	  printf("enter a char to insert\n");
+	  printf("enter a float to insert\n");
           scanf("%f", &xf);
           scanf("%c", &trash);
           void *ptr = (void*)(malloc(sizeof(float)));
@@ -242,7 +243,7 @@ int main(int argc, char** argv){
           if(ptr == NULL)
             printf("NULL\n");
           else
-            printf("item: %.9f\n", *((float*)(ptr)));
+            printf("item: %f\n", *((float*)(ptr)));
         }
       }
       else if(in == '2'){ //get next data

@@ -45,7 +45,6 @@ struct SortedList
   struct SortedList* next;
   struct SortedList* prev;
   void* data; 
-  int references; 
   CompareFuncT compare;
   DestructFuncT destruct;
 };

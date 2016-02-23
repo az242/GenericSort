@@ -119,7 +119,7 @@ int main(int argc, char** argv){
           scanf("%f", &xf);
           scanf("%c", &trash);
           void *ptr = (void*)(malloc(sizeof(float)));
-          memcpy(ptr, &xf, 1);
+          memcpy(ptr, &xf, 30);
           if(SLfloat == NULL){
             SLfloat = SLCreate(&compareFloat, &df);
             printf("created list, SLfloat\n");
@@ -246,7 +246,7 @@ int main(int argc, char** argv){
         }
       }
       else if(in == '2'){ //get next data
-        printf("0 for int iterator, 1 for char iterator\n");
+        printf("0 for int iterator, 1 for char iterator, 2 for string iterator, 3 for float iterator\n");
         scanf("%c", &in);
         scanf("%c", &trash);
         if(in == '0'){ // int
@@ -283,7 +283,7 @@ int main(int argc, char** argv){
         }
       }
       else if(in == '3'){ //destroy
-	printf("0 for int iterator, 1 for char iterator\n");
+	printf("0 for int iterator, 1 for char iterator, 2 for string iterator, 3 for float iterator\n");
 	scanf("%c", &in);
         scanf("%c", &trash);
 	if(in == '0'){ // int

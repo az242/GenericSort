@@ -20,7 +20,6 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
   temp->next = NULL;
   temp->prev = NULL;
   temp->data = NULL;
-  temp->references = 0;
   temp->compare = cf;
   temp->destruct = df;
   return temp;
@@ -61,9 +60,14 @@ int SLInsert(SortedListPtr list, void *newObj){
   else if(list->compare(newObj, list->data) == 1){ //if object is greater than current object
     if(list->prev == NULL){ //insert at beginning of list
       SortedListPtr temp = SLCreate(list->compare, list->destruct);
-      temp->next = list;
-      list->prev = temp;
-      temp->data = newObj;
+      temp->prev = list;
+      if(list->next != NULL){
+	temp->next = list->next;
+	list->next->prev = temp;
+      }
+      list->next=temp;
+      temp->data = list->data;
+      list->data = newObj;
       return 1;
     }
     else if(list->compare(newObj, list->prev->data) == -1){ //insert before current object
@@ -118,7 +122,14 @@ int SLRemove(SortedListPtr list, void *newObj){
   }
   else if(list->compare(newObj, list->data) == 0){ //if object already inserted
     if(list->prev == NULL){ //no object before
-      list->next->prev = NULL;
+      //list->next->prev = NULL;
+      while(list->next != NULL){
+	list->data = list->next->data;
+	list = list->next;
+      }
+      list->prev->next = NULL;
+      list->destruct(list);
+      return 1;
     }
     else if(list->next == NULL){
       list->prev->next = NULL;
